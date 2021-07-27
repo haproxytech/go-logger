@@ -19,10 +19,14 @@ import (
 )
 
 func Test_gologgers_Print(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Print("test")
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -44,9 +48,12 @@ func Test_gologgers_Print(t *testing.T) {
 }
 
 func Test_gologgers_Trace(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Trace("test")
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -69,10 +76,14 @@ func Test_gologgers_Trace(t *testing.T) {
 }
 
 func Test_gologgers_Debug(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Debug("test")
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -94,9 +105,12 @@ func Test_gologgers_Debug(t *testing.T) {
 }
 
 func Test_gologgers_Info(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Info("test")
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -119,10 +133,14 @@ func Test_gologgers_Info(t *testing.T) {
 }
 
 func Test_gologgers_Warning(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Warning("test")
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -144,10 +162,14 @@ func Test_gologgers_Warning(t *testing.T) {
 }
 
 func Test_gologgers_Error(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Error("test")
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -169,10 +191,14 @@ func Test_gologgers_Error(t *testing.T) {
 }
 
 func Test_gologgers_Panic(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Panic("test")
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -194,10 +220,14 @@ func Test_gologgers_Panic(t *testing.T) {
 }
 
 func Test_gologgers_Printf(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Printf("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}
@@ -225,10 +255,14 @@ func Test_gologgers_Printf(t *testing.T) {
 }
 
 func Test_gologgers_Tracef(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Tracef("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}
@@ -256,10 +290,14 @@ func Test_gologgers_Tracef(t *testing.T) {
 }
 
 func Test_gologgers_Debugf(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Debugf("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}
@@ -287,10 +325,14 @@ func Test_gologgers_Debugf(t *testing.T) {
 }
 
 func Test_gologgers_Infof(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Infof("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}
@@ -318,10 +360,14 @@ func Test_gologgers_Infof(t *testing.T) {
 }
 
 func Test_gologgers_Warningf(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Warningf("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}
@@ -349,10 +395,14 @@ func Test_gologgers_Warningf(t *testing.T) {
 }
 
 func Test_gologgers_Errorf(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Errorf("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}
@@ -380,10 +430,14 @@ func Test_gologgers_Errorf(t *testing.T) {
 }
 
 func Test_gologgers_Panicf(t *testing.T) {
+	t.Parallel()
+
 	mocked1 := &loggerMock{}
 	mocked2 := &loggerMock{}
 	log := New(mocked1, mocked2)
+
 	log.Panicf("test %s", "str")
+
 	if mocked1.format != "test %s" {
 		t.FailNow()
 	}

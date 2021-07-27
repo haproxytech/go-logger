@@ -44,10 +44,12 @@ func New(logger ...Logger) Logger {
 		log := &gologger{
 			logger: logger[0],
 		}
+
 		return log
 	}
 	logs := &gologgers{
 		loggers: logger,
 	}
+
 	return logs
 }

@@ -25,6 +25,7 @@ func argsToStr(args []interface{}) (result []string) {
 		a := arg.(string)
 		result = append(result, a)
 	}
+
 	return result
 }
 
@@ -81,7 +82,7 @@ func (m *loggerMock) Debugf(format string, args ...interface{}) {
 }
 
 func (m *loggerMock) Infof(format string, args ...interface{}) {
-	m.saveWithFormat("Infof", format, args)
+	m.saveWithFormat("Debugf", format, args)
 }
 
 func (m *loggerMock) Warningf(format string, args ...interface{}) {
