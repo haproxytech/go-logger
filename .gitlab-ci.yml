@@ -1,0 +1,65 @@
+---
+stages:
+  - build
+  - lint
+  - test
+variables:
+  DOCKER_HOST: tcp://docker:2375
+
+.go-cache:
+  variables:
+    GOPATH: $CI_PROJECT_DIR/.go
+  image:
+    name: $CI_REGISTRY_GO/golang:1.16
+    entrypoint: [""]
+  before_script:
+    - mkdir -p .go
+  cache:
+    paths:
+      - .go/pkg/mod/
+
+build:
+  extends: .go-cache
+  stage: build
+  needs: []
+  tags:
+    - go
+  before_script:
+    - mkdir -p .go
+  script:
+    - go build
+
+tidy:
+  stage: lint
+  needs: ["build"]
+  image:
+    name: $CI_REGISTRY_GO/golang:1.16
+    entrypoint: [""]
+  tags:
+    - go
+  script:
+    - go mod tidy
+    - test -z "$(git diff 2> /dev/null)" || exit 'Go modules not tidied, issue \`go mod tidy\` and commit the result'
+
+golangci-lint:
+  stage: lint
+  needs: ["build"]
+  image:
+    name: $CI_REGISTRY_GO/lint:latest
+    entrypoint: [""]
+  tags:
+    - go
+  script:
+    - golangci-lint run --color always --timeout 120s
+
+test:
+  extends: .go-cache
+  stage: test
+  needs: ["build"]
+  image:
+    name: $CI_REGISTRY_GO/golang:1.16
+    entrypoint: [""]
+  tags:
+    - go
+  script:
+    - go test ./... -cover
