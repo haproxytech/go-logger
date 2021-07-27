@@ -82,7 +82,7 @@ func (m *loggerMock) Debugf(format string, args ...interface{}) {
 }
 
 func (m *loggerMock) Infof(format string, args ...interface{}) {
-	m.saveWithFormat("Debugf", format, args)
+	m.saveWithFormat("Infof", format, args)
 }
 
 func (m *loggerMock) Warningf(format string, args ...interface{}) {
