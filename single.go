@@ -59,7 +59,7 @@ func (l *gologger) Debugf(format string, args ...interface{}) {
 }
 
 func (l *gologger) Infof(format string, args ...interface{}) {
-	l.logger.Debugf(format, args...)
+	l.logger.Infof(format, args...)
 }
 
 func (l *gologger) Warningf(format string, args ...interface{}) {
