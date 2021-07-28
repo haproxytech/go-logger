@@ -20,84 +20,98 @@ type gologgers struct {
 
 func (l *gologgers) Print(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Print(args...)
+		log := log
+		go log.Print(args...)
 	}
 }
 
 func (l *gologgers) Trace(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Trace(args...)
+		log := log
+		go log.Trace(args...)
 	}
 }
 
 func (l *gologgers) Debug(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Debug(args...)
+		log := log
+		go log.Debug(args...)
 	}
 }
 
 func (l *gologgers) Info(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Info(args...)
+		log := log
+		go log.Info(args...)
 	}
 }
 
 func (l *gologgers) Warning(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Warning(args...)
+		log := log
+		go log.Warning(args...)
 	}
 }
 
 func (l *gologgers) Error(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Error(args...)
+		log := log
+		go log.Error(args...)
 	}
 }
 
 func (l *gologgers) Panic(args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Panic(args...)
+		log := log
+		go log.Panic(args...)
 	}
 }
 
 func (l *gologgers) Printf(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Printf(format, args...)
+		log := log
+		go log.Printf(format, args...)
 	}
 }
 
 func (l *gologgers) Tracef(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Tracef(format, args...)
+		log := log
+		go log.Tracef(format, args...)
 	}
 }
 
 func (l *gologgers) Debugf(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Debugf(format, args...)
+		log := log
+		go log.Debugf(format, args...)
 	}
 }
 
 func (l *gologgers) Infof(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Infof(format, args...)
+		log := log
+		go log.Infof(format, args...)
 	}
 }
 
 func (l *gologgers) Warningf(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Warningf(format, args...)
+		log := log
+		go log.Warningf(format, args...)
 	}
 }
 
 func (l *gologgers) Errorf(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Errorf(format, args...)
+		log := log
+		go log.Errorf(format, args...)
 	}
 }
 
 func (l *gologgers) Panicf(format string, args ...interface{}) {
 	for _, log := range l.loggers {
-		log.Panicf(format, args...)
+		log := log
+		go log.Panicf(format, args...)
 	}
 }

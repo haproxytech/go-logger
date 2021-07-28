@@ -16,6 +16,7 @@ package logger
 
 import (
 	"testing"
+	"time"
 )
 
 func Test_gologgers_Print(t *testing.T) {
@@ -26,6 +27,7 @@ func Test_gologgers_Print(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Print("test")
+	time.Sleep(time.Millisecond)
 
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -55,6 +57,8 @@ func Test_gologgers_Trace(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Trace("test")
+	time.Sleep(time.Millisecond)
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -83,6 +87,7 @@ func Test_gologgers_Debug(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Debug("test")
+	time.Sleep(time.Millisecond)
 
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -112,6 +117,8 @@ func Test_gologgers_Info(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Info("test")
+	time.Sleep(time.Millisecond)
+
 	if len(mocked1.args) != 1 {
 		t.FailNow()
 	}
@@ -140,6 +147,7 @@ func Test_gologgers_Warning(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Warning("test")
+	time.Sleep(time.Millisecond)
 
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -169,6 +177,7 @@ func Test_gologgers_Error(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Error("test")
+	time.Sleep(time.Millisecond)
 
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -198,6 +207,7 @@ func Test_gologgers_Panic(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Panic("test")
+	time.Sleep(time.Millisecond)
 
 	if len(mocked1.args) != 1 {
 		t.FailNow()
@@ -227,6 +237,7 @@ func Test_gologgers_Printf(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Printf("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
@@ -262,6 +273,7 @@ func Test_gologgers_Tracef(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Tracef("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
@@ -297,6 +309,7 @@ func Test_gologgers_Debugf(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Debugf("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
@@ -332,6 +345,7 @@ func Test_gologgers_Infof(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Infof("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
@@ -367,6 +381,7 @@ func Test_gologgers_Warningf(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Warningf("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
@@ -402,6 +417,7 @@ func Test_gologgers_Errorf(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Errorf("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
@@ -437,6 +453,7 @@ func Test_gologgers_Panicf(t *testing.T) {
 	log := New(mocked1, mocked2)
 
 	log.Panicf("test %s", "str")
+	time.Sleep(time.Millisecond)
 
 	if mocked1.format != "test %s" {
 		t.FailNow()
