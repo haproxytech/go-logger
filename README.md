@@ -2,6 +2,8 @@
 
 ## Go Logger
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 ### Description
 
 Go Logger is an interface for logging in Go programing language.
