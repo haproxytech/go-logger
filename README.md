@@ -2,6 +2,7 @@
 
 ## Go Logger
 
+[![Contributors](https://img.shields.io/github/contributors/haproxytech/go-logger?color=purple)](https://github.com/haproxy/haproxy/blob/master/CONTRIBUTING)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ### Description
