@@ -14,6 +14,8 @@
 
 package logger
 
+import "os"
+
 type Std interface {
 	Print(args ...interface{})
 	Trace(args ...interface{})
@@ -21,6 +23,7 @@ type Std interface {
 	Info(args ...interface{})
 	Warning(args ...interface{})
 	Error(args ...interface{})
+	Fatal(args ...interface{})
 	Panic(args ...interface{})
 }
 
@@ -31,6 +34,7 @@ type Format interface {
 	Infof(format string, args ...interface{})
 	Warningf(format string, args ...interface{})
 	Errorf(format string, args ...interface{})
+	Fatalf(format string, args ...interface{})
 	Panicf(format string, args ...interface{})
 }
 
@@ -39,16 +43,18 @@ type Logger interface {
 	Format
 }
 
-func New(logger ...Logger) Logger {
+func New(logger ...Logger) Logger { //nolint:ireturn
 	if len(logger) == 1 {
 		log := &gologger{
-			logger: logger[0],
+			logger:   logger[0],
+			exitFunc: os.Exit,
 		}
 
 		return log
 	}
 	logs := &gologgers{
-		loggers: logger,
+		loggers:  logger,
+		exitFunc: os.Exit,
 	}
 
 	return logs

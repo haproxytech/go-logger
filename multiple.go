@@ -14,8 +14,13 @@
 
 package logger
 
+import (
+	"fmt"
+)
+
 type gologgers struct {
-	loggers []Logger
+	loggers  []Logger
+	exitFunc func(code int)
 }
 
 func (l *gologgers) Print(args ...interface{}) {
@@ -60,58 +65,85 @@ func (l *gologgers) Error(args ...interface{}) {
 	}
 }
 
-func (l *gologgers) Panic(args ...interface{}) {
+func (l *gologgers) Fatal(args ...interface{}) {
 	for _, log := range l.loggers {
 		log := log
-		go log.Panic(args...)
+		go log.Print(args...)
 	}
+	l.exitFunc(1)
+}
+
+func (l *gologgers) Panic(args ...interface{}) {
+	s := fmt.Sprint(args...)
+	for _, log := range l.loggers {
+		log := log
+		go log.Print(s)
+	}
+	panic(s)
 }
 
 func (l *gologgers) Printf(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Printf(format, args...)
+		go log.Print(s)
 	}
 }
 
 func (l *gologgers) Tracef(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Tracef(format, args...)
+		go log.Trace(s)
 	}
 }
 
 func (l *gologgers) Debugf(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Debugf(format, args...)
+		go log.Debug(s)
 	}
 }
 
 func (l *gologgers) Infof(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Infof(format, args...)
+		go log.Info(s)
 	}
 }
 
 func (l *gologgers) Warningf(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Warningf(format, args...)
+		go log.Warning(s)
 	}
 }
 
 func (l *gologgers) Errorf(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Errorf(format, args...)
+		go log.Error(s)
 	}
 }
 
-func (l *gologgers) Panicf(format string, args ...interface{}) {
+func (l *gologgers) Fatalf(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
 	for _, log := range l.loggers {
 		log := log
-		go log.Panicf(format, args...)
+		go log.Print(s)
 	}
+	l.exitFunc(1)
+}
+
+func (l *gologgers) Panicf(format string, args ...interface{}) {
+	s := fmt.Sprintf(format, args...)
+	for _, log := range l.loggers {
+		log := log
+		go log.Print(s)
+	}
+	panic(s)
 }

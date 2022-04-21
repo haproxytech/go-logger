@@ -21,7 +21,7 @@ import (
 func Test_gologger_Print(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Print("test")
@@ -40,7 +40,7 @@ func Test_gologger_Print(t *testing.T) {
 func Test_gologger_Trace(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Trace("test")
@@ -58,7 +58,7 @@ func Test_gologger_Trace(t *testing.T) {
 func Test_gologger_Debug(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Debug("test")
@@ -76,7 +76,7 @@ func Test_gologger_Debug(t *testing.T) {
 func Test_gologger_Info(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Info("test")
@@ -95,7 +95,7 @@ func Test_gologger_Info(t *testing.T) {
 func Test_gologger_Warning(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Warning("test")
@@ -114,7 +114,7 @@ func Test_gologger_Warning(t *testing.T) {
 func Test_gologger_Error(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Error("test")
@@ -130,10 +130,42 @@ func Test_gologger_Error(t *testing.T) {
 	}
 }
 
+func Test_gologger_Fatal(t *testing.T) {
+	t.Parallel()
+
+	mocked := &loggerMock{} //nolint:exhaustivestruct
+	log := New(mocked)
+
+	flog, ok := log.(*gologger)
+	if !ok {
+		t.FailNow()
+	}
+	exitCalled := false
+	flog.exitFunc = func(code int) {
+		exitCalled = true
+	}
+	log = flog
+
+	log.Fatal("test")
+
+	if len(mocked.args) != 1 {
+		t.FailNow()
+	}
+	if mocked.args[0] != "test" {
+		t.FailNow()
+	}
+	if mocked.caller != "Print" {
+		t.FailNow()
+	}
+	if !exitCalled {
+		t.FailNow()
+	}
+}
+
 func Test_gologger_Panic(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Panic("test")
@@ -152,7 +184,7 @@ func Test_gologger_Panic(t *testing.T) {
 func Test_gologger_Printf(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Printf("test %s", "str")
@@ -174,7 +206,7 @@ func Test_gologger_Printf(t *testing.T) {
 func Test_gologger_Tracef(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Tracef("test %s", "str")
@@ -196,7 +228,7 @@ func Test_gologger_Tracef(t *testing.T) {
 func Test_gologger_Debugf(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Debugf("test %s", "str")
@@ -218,7 +250,7 @@ func Test_gologger_Debugf(t *testing.T) {
 func Test_gologger_Infof(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Infof("test %s", "str")
@@ -240,7 +272,7 @@ func Test_gologger_Infof(t *testing.T) {
 func Test_gologger_Warningf(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Warningf("test %s", "str")
@@ -262,7 +294,7 @@ func Test_gologger_Warningf(t *testing.T) {
 func Test_gologger_Errorf(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Errorf("test %s", "str")
@@ -281,10 +313,44 @@ func Test_gologger_Errorf(t *testing.T) {
 	}
 }
 
+func Test_gologger_Fatalf(t *testing.T) {
+	t.Parallel()
+
+	mocked := &loggerMock{} //nolint:exhaustivestruct
+	log := New(mocked)
+	flog, ok := log.(*gologger)
+	if !ok {
+		t.FailNow()
+	}
+	exitCalled := false
+	flog.exitFunc = func(code int) {
+		exitCalled = true
+	}
+	log = flog
+
+	log.Fatalf("test %s", "str")
+
+	if mocked.format != "test %s" {
+		t.FailNow()
+	}
+	if len(mocked.args) != 1 {
+		t.FailNow()
+	}
+	if mocked.args[0] != "str" {
+		t.FailNow()
+	}
+	if mocked.caller != "Printf" {
+		t.FailNow()
+	}
+	if !exitCalled {
+		t.FailNow()
+	}
+}
+
 func Test_gologger_Panicf(t *testing.T) {
 	t.Parallel()
 
-	mocked := &loggerMock{}
+	mocked := &loggerMock{} //nolint:exhaustivestruct
 	log := New(mocked)
 
 	log.Panicf("test %s", "str")
