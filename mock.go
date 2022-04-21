@@ -22,7 +22,7 @@ type loggerMock struct {
 
 func argsToStr(args []interface{}) (result []string) {
 	for _, arg := range args {
-		a := arg.(string)
+		a := arg.(string) //nolint:forcetypeassert
 		result = append(result, a)
 	}
 
@@ -65,6 +65,9 @@ func (m *loggerMock) Error(args ...interface{}) {
 	m.save("Error", args)
 }
 
+func (m *loggerMock) Fatal(args ...interface{}) {
+}
+
 func (m *loggerMock) Panic(args ...interface{}) {
 	m.save("Panic", args)
 }
@@ -91,6 +94,9 @@ func (m *loggerMock) Warningf(format string, args ...interface{}) {
 
 func (m *loggerMock) Errorf(format string, args ...interface{}) {
 	m.saveWithFormat("Errorf", format, args)
+}
+
+func (m *loggerMock) Fatalf(format string, args ...interface{}) {
 }
 
 func (m *loggerMock) Panicf(format string, args ...interface{}) {

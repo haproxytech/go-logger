@@ -17,26 +17,30 @@ package standard
 import (
 	"io"
 	"log"
+	"os"
 
 	loger "github.com/haproxytech/go-logger"
 )
 
 // New returns default log from Go 'log' package, but that logger is compatible with go-logger interface.
-func New(out io.Writer, prefix string, flag int) loger.Logger {
+func New(out io.Writer, prefix string, flag int) loger.Logger { //nolint:ireturn
 	return loggerStandard{
-		logger: log.New(out, prefix, flag),
+		logger:   log.New(out, prefix, flag),
+		exitFunc: os.Exit,
 	}
 }
 
 // Default returns default log from Go 'log' package, but that logger is compatible with go-logger interface.
-func Default() loger.Logger {
+func Default() loger.Logger { //nolint:ireturn
 	return loggerStandard{
-		logger: log.Default(),
+		logger:   log.Default(),
+		exitFunc: os.Exit,
 	}
 }
 
 type loggerStandard struct {
-	logger *log.Logger
+	logger   *log.Logger
+	exitFunc func(code int)
 }
 
 func (l loggerStandard) Print(args ...interface{}) {
@@ -61,6 +65,11 @@ func (l loggerStandard) Warning(args ...interface{}) {
 
 func (l loggerStandard) Error(args ...interface{}) {
 	l.logger.Println(args...)
+}
+
+func (l loggerStandard) Fatal(args ...interface{}) {
+	l.logger.Print(args...)
+	l.exitFunc(1)
 }
 
 func (l loggerStandard) Panic(args ...interface{}) {
@@ -89,6 +98,11 @@ func (l loggerStandard) Warningf(format string, args ...interface{}) {
 
 func (l loggerStandard) Errorf(format string, args ...interface{}) {
 	l.logger.Printf(format, args...)
+}
+
+func (l loggerStandard) Fatalf(format string, args ...interface{}) {
+	l.logger.Printf(format, args...)
+	l.exitFunc(1)
 }
 
 func (l loggerStandard) Panicf(format string, args ...interface{}) {

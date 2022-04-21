@@ -48,7 +48,7 @@ func TestNew(t *testing.T) {
 	got.Warningf("b")
 
 	// check for log output
-	result := buf.String()
+	result := buf.String() //nolint:ifshort
 	if result != "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\na\nb\n" {
 		t.Errorf("want 0\n1\n2\n3\n4\n5\n6\n7\n8\n9\na\nb\n got %s", result)
 	}
@@ -105,7 +105,49 @@ func TestDefaultConform(t *testing.T) {
 	got.Warningf("b")
 }
 
-func TestDefaultPanic1(t *testing.T) {
+func TestDefaultFatal1(t *testing.T) {
+	t.Parallel()
+	got := Default()
+
+	flog, ok := got.(loggerStandard)
+	if !ok {
+		t.FailNow()
+	}
+	exitCalled := false
+	flog.exitFunc = func(code int) {
+		exitCalled = true
+	}
+	got = flog
+
+	got.Fatal("aaaa")
+
+	if !exitCalled {
+		t.FailNow()
+	}
+}
+
+func TestDefaultFatalf(t *testing.T) {
+	t.Parallel()
+	got := Default()
+
+	flog, ok := got.(loggerStandard)
+	if !ok {
+		t.FailNow()
+	}
+	exitCalled := false
+	flog.exitFunc = func(code int) {
+		exitCalled = true
+	}
+	got = flog
+
+	got.Fatalf("aaaa")
+
+	if !exitCalled {
+		t.FailNow()
+	}
+}
+
+func TestDefaultPanic(t *testing.T) {
 	t.Parallel()
 	defer func() {
 		if r := recover(); r == nil {
@@ -118,7 +160,7 @@ func TestDefaultPanic1(t *testing.T) {
 	got.Panic("aaaa")
 }
 
-func TestDefaultPanic2(t *testing.T) {
+func TestDefaultPanicf(t *testing.T) {
 	t.Parallel()
 	defer func() {
 		if r := recover(); r == nil {

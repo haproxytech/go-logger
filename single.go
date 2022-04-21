@@ -15,7 +15,8 @@
 package logger
 
 type gologger struct {
-	logger Logger
+	logger   Logger
+	exitFunc func(code int)
 }
 
 func (l *gologger) Print(args ...interface{}) {
@@ -40,6 +41,11 @@ func (l *gologger) Warning(args ...interface{}) {
 
 func (l *gologger) Error(args ...interface{}) {
 	l.logger.Error(args...)
+}
+
+func (l *gologger) Fatal(args ...interface{}) {
+	l.logger.Print(args...)
+	l.exitFunc(1)
 }
 
 func (l *gologger) Panic(args ...interface{}) {
@@ -68,6 +74,11 @@ func (l *gologger) Warningf(format string, args ...interface{}) {
 
 func (l *gologger) Errorf(format string, args ...interface{}) {
 	l.logger.Errorf(format, args...)
+}
+
+func (l *gologger) Fatalf(format string, args ...interface{}) {
+	l.logger.Printf(format, args...)
+	l.exitFunc(1)
 }
 
 func (l *gologger) Panicf(format string, args ...interface{}) {
