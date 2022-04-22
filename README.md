@@ -2,8 +2,18 @@
 
 ## Go Logger
 
+[![made-with-Go](https://img.shields.io/badge/Made%20with-Go-1f425f.svg)](https://go.dev/)
+[![Github tag](https://badgen.net/github/tag/haproxytech/go-logger)](https://github.com/haproxytech/go-logger/tags/)
+[![CI](https://github.com/haproxytech/go-logger/actions/workflows/actions.yaml/badge.svg)](https://github.com/haproxytech/go-logger/actions/workflows/actions.yaml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/haproxytech/go-logger)](https://goreportcard.com/report/github.com/haproxytech/go-logger)
+[![GoDoc reference example](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/haproxytech/go-logger)
+[![go.mod Go version](https://img.shields.io/github/go-mod/go-version/haproxytech/go-logger.svg)](https://github.com/haproxytech/go-logger)
 [![Contributors](https://img.shields.io/github/contributors/haproxytech/go-logger?color=purple)](https://github.com/haproxy/haproxy/blob/master/CONTRIBUTING)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+
+
+
 
 ### Description
 
